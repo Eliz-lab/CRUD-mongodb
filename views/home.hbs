@@ -1,0 +1,94 @@
+<h1>{{title}}</h1>
+
+<section class="insert">
+    <h3>Insert Data</h3>
+    <form action="/insert" method="post">
+        <div class="input">
+            <label for="title">Title</label>
+            <input type="text" id="title" name="title">
+
+        </div>
+
+        <div class="input">
+            <label for="title">Content</label>
+            <input type="text" id="content" name="content">
+
+        </div>
+
+        <div class="input">
+            <label for="title">Author</label>
+            <input type="text" id="author" name="author">
+        </div>
+        <button type="submit">Insert</button>
+    </form>
+</section>
+
+<section class="get">
+    <h3>GET DATA</h3>
+    <a href="/get-data">Get Data</a> 
+
+    <div>
+        {{#each items}}
+            <article class="item">
+                <div>Title: {{this.title}}</div>
+                <div>Content:{{this.content}} </div>
+                <div>Atuthor: {{this.author}}</div>
+                <div>ID: {{this._id}}</div>
+
+            </article>
+        {{/each}}
+    </div>
+    
+</section>
+<section class="update">
+    <h3>Update Data</h3>
+    <form action="/update-data" method="post">
+        <div class="input">
+            <label for="id">ID</label>
+            <input type="text" id="id" name="id">
+
+        </div>
+        <div class="input">
+            <label for="title">Title</label>
+            <input type="text" id="title" name="title">
+        </div>
+
+        <div class="input">
+            <label for="title">Content</label>
+            <input type="text" id="content" name="content">
+        </div>
+
+        <div class="input">
+            <label for="title">Author</label>
+            <input type="text" id="author" name="author">
+        </div>
+        <button type="submit">Update</button>
+    </form>
+</section>
+
+<section class="delete">
+     
+    <h3>Delete DATA</h3>
+    <form action="/delete-data/:id" method="POST">
+        <input type="text" name="id" id="id"><br/>
+    </form>
+    <button onclick="del()">Delete</button>
+
+</section>
+<script>
+    function del(){
+        console.log("DEL")
+        // fetch request for(delete)
+        const url = `/delete-data/:id`
+        fetch(url,{
+            method: 'delete',
+            body: {id: document.getElementById('id').value}
+        }).then(data=>{
+            data.json().then(message=>{
+                console.log(message)
+                window.location.replace('/get-data')
+            })
+        })
+    }
+</script>
+
